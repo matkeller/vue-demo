@@ -1,0 +1,92 @@
+
+<template>
+  <b-container>
+    <b-row class="justify-content-md-center">
+      <b-col cols="12" md="8">
+        <h1>{{ msg }}</h1>
+
+        <button v-on:click="loadPeople">Re-Load Data</button>
+        <button v-on:click="status = 'cleared'">Clear Status</button> <br> Status is: {{ status }} <br>
+        <div>
+          <b-table striped hover :items="people" :fields="fields"></b-table>
+        </div>
+      </b-col>
+    </b-row>
+  </b-container>
+</template>
+
+
+
+<script>
+import axios from 'axios'
+
+export default {
+  name: 'new',
+  data() {
+    return {
+      msg: 'Welcome to the Table page!',
+      people: [{}],
+      status: 'Starting',
+      //fields: [ 'ident', 'name', 'email', 'phone']
+      fields: {
+        ident: {
+          label: 'Record Id',
+          sortable: true
+        },
+        name: {
+          label: 'Full Name',
+          sortable: true
+        },
+        email: {
+          label: 'Email Address',
+          sortable: true
+        }
+      }
+    }
+  },
+  created: function() {
+    this.loadPeople();
+  },
+  methods: {
+    loadPeople: function() {
+      this.status = "Loading............";
+      var vm = this;
+      axios({
+        method: 'get',
+        url: 'http://localhost:8080/rest/default/mat/v1/apatu:people',
+        headers: { 'Authorization': 'CALiveAPICreator aToken:1' },
+        data: {
+        }
+      })
+        .then(function(response) {
+          vm.status = "Got data!";
+          vm.people = response.data;
+        })
+        .catch(function(error) {
+          vm.status = 'An error occurred.  It is: ' + error;
+        });
+    }
+  }
+}
+</script>
+
+
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h1,
+h2 {
+  font-weight: normal;
+  color: #42b983;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+</style>

@@ -1,0 +1,122 @@
+<template>
+  <div class="new">
+    <h1>{{ msg }}</h1>
+ 
+            <button v-on:click="loadPeople">Re-Load Data</button>  
+            <button v-on:click="status = 'cleared'">Clear Status</button> <br>
+            Status is: {{ status }} <br>
+            <div>
+              <b-table striped hover :items="people" :fields="fields"></b-table>
+            </div>
+  </div>
+</template>
+
+
+
+<script>
+import axios from 'axios'
+
+export default {
+  name: 'manage',
+  data() {
+    return {
+      msg: 'Welcome to the Table page!',
+      people: [{}],
+      status: 'Starting',
+
+      fields: {
+        id: {
+          label: 'Record Id',
+          sortable: true
+        },
+        firstName: {
+          label: 'First Name',
+          sortable: true
+        },
+        lastName: {
+          label: 'Last Name',
+          sortable: true
+        },
+        isApprover: {
+          label: 'Approver',
+          sortable: true
+        },
+        companyName: {
+          label: 'Company Name',
+          sortable: true
+        },
+        licenseNumber: {
+          label: 'License Number',
+          sortable: true
+        },
+        phoneNumber: {
+          label: 'Phone',
+          sortable: true
+        },
+        streetAddress: {
+          label: 'Street',
+          sortable: true
+        },
+        city: {
+          label: 'City',
+          sortable: true
+        },
+        state: {
+          label: 'State',
+          sortable: true
+        },
+        zipCode: {
+          label: 'Zip Code',
+          sortable: true
+        },
+        latitude: {
+          label: '',
+          sortable: true
+        },
+        longitude: {
+          label: '',
+          sortable: true
+        }
+      }
+    }
+  },
+  created: function() {
+    this.loadPeople();
+  },
+  methods: {
+    loadPeople: function() {
+      this.status = "Loading............";
+      var vm = this;
+      axios({
+        ////crossdomain: true,
+        withCredentials: true,
+        method: 'get',
+        url: 'https://35.166.188.123:8443/backend/customer4',
+        //Get base URL from /config/dev.env.js file
+        //url: process.env.API_HOST + '/rest/default/permits/v1/ryobm:User',
+        headers: { 
+          //'Authorization': 'CALiveAPICreator erLwuhkV3WbgTLhozIIE:1'
+          //'Content-Type': 'application/json'
+          'Authorization': 'Basic YWRtaW46Q0FkZW1vMTIzIQ=='
+          //'username': 'admin',
+          //'password': 'CAdemo123!' 
+        },
+        data: {
+        }
+      })
+        .then(function(response) {
+          vm.status = "Got data!";
+          vm.people = response.data;
+        })
+        .catch(function(error) {
+          vm.status = 'An error occurred.  It is: ' + error;
+        });
+    }
+  }
+}
+</script>
+
+
+<style>
+
+</style>
