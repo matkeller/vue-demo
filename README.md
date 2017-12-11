@@ -2,14 +2,18 @@
 
 Demo app using Vue.js with APIs and JWTs.
 
-# install dependencies
-npm install
+
+# Prep:
+Be sure node and git are installed and go to directory you want to work in. 
+
+# Clone the vue-demo github repo
+$ git clone https://github.com/matkeller/vue-demo.git
+
+# install dependencies (ignore warnings but call me if errors!)
+$ cd vue-demo   
+$ npm i bootstrap-vue bootstrap@4.0.0-beta.2
+$ npm install
 
 # serve with hot reload at localhost:9002
-npm run dev
+$ npm run dev
 
-# Edit /config/dev.env.js to point to different API url for dev
-# Edit /config/prod.env.js to point to different API url for prod 
-
-# build for production with minification 
-npm run build
