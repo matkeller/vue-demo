@@ -11,7 +11,6 @@ $ git clone https://github.com/matkeller/vue-demo.git
 
 # install dependencies (ignore warnings but call me if errors!)
 $ cd vue-demo   
-$ npm i bootstrap-vue bootstrap@4.0.0-beta.2
 $ npm install
 
 # serve with hot reload at localhost:9002
